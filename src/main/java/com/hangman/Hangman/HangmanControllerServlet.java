@@ -9,7 +9,7 @@ import java.io.IOException;
 public class HangmanControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("REQUEST RECEIVED");
+        System.out.println("GET REQUEST RECEIVED");
         ServletContext servletContext = getServletContext();
         RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/test.jsp");
         dispatcher.forward(request, response);
