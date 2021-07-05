@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>Hangman</title>
     <link rel="stylesheet" type="text/css" href="resources/main.css">
 </head>
 <body>
@@ -13,8 +13,6 @@
 <div align="center">
     <p>Hello there!</p>
     <a href="HangmanGame">Click here to start game</a>
-    <p>PAGE CONTEXT IS:</p>
-    <p>${pageContext.request.contextPath}</p>
     <img src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
 </div>
 </body>
