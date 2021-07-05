@@ -14,7 +14,7 @@
 
 <div class="hangManContainer" align="center">
     <p>Hello there!</p>
-    <img src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
+    <img src="${pageContext.request.contextPath}/resources/hangmanStart.jpeg"/>
 </div>
     <div class="empty-letters-parent">
         <div class="flex-box-letters-horizontal">
