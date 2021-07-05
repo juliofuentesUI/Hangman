@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>JSP - Hello World</title>
+    <link rel="stylesheet" type="text/css" href="resources/main.css">
 </head>
 <body>
 <h1>
@@ -14,7 +15,7 @@
     <a href="HangmanGame">Click here to start game</a>
     <p>PAGE CONTEXT IS:</p>
     <p>${pageContext.request.contextPath}</p>
-    <img src="/root/imagesFolder/hangman0copy.jpeg"/>
+    <img src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
 </div>
 </body>
 </html>
