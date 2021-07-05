@@ -12,16 +12,16 @@
 </h1>
 <br/>
 
-<div align="center">
+<div class="hangManContainer" align="center">
     <p>Hello there!</p>
     <img src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
+</div>
     <div class="empty-letters-parent">
         <div class="flex-box-letters-horizontal">
             <c:forEach var = "i" begin="1" end="5">
-                <div class="empty-letter">____</div>
+                <div class="empty-letter">__</div>
             </c:forEach>
         </div>
     </div>
-</div>
 </body>
 </html>

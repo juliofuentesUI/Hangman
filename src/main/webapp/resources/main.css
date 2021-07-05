@@ -1,3 +1,17 @@
-div {
+div.hangManContainer {
     border: 5px solid black;
+}
+
+div.empty-letters-parent {
+    border: 5px solid red;
+}
+
+div.flex-box-letters-horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.empty-letter {
+    margin-left: 30px;
 }
