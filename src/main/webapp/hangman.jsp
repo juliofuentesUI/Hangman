@@ -15,7 +15,6 @@
 <body>
     <div>
         <div class="hangManContainer" align="center">
-            <a href="/HangmanGame?startGame=true">Start Game</a>
             <p>Hello there!</p>
             <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangmanStart.jpeg"/>
         </div>

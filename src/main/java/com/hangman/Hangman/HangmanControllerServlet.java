@@ -30,6 +30,7 @@ public class HangmanControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //check for cookies first...see if they exists THAT WAY, also keep hasStarted flag in session object why not
         System.out.println("GET REQUEST RECEIVED");
         HttpSession session = request.getSession();
         //get session if it exists already, which it almost likely will.
@@ -55,6 +56,8 @@ public class HangmanControllerServlet extends HttpServlet {
             dispatcher.forward(request, response);
             //load up the game .. probably on a diff  JSP page
             //make JSP page access data only from sessions cope object called "session" in jsp context
+        } else {
+            //their game already exists!
         }
     }
 
