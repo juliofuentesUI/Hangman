@@ -38,7 +38,7 @@ public class HangmanControllerServlet extends HttpServlet {
             //load up the game .. probably on a diff  JSP page
             //make JSP page access data only from sessions cope object called "session" in jsp context
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/test.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
         dispatcher.forward(request, response);
     }
 

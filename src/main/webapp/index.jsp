@@ -12,17 +12,8 @@
 </h1>
 <br/>
 
-<a href="/HangmanGame?startGame=true">Start Game</a>
 <div class="hangManContainer" align="center">
-    <p>Hello there!</p>
-    <img src="${pageContext.request.contextPath}/resources/hangmanStart.jpeg"/>
+    <a href="/HangmanGame?startGame=true">Start Game</a>
 </div>
-    <div class="empty-letters-parent">
-        <div class="flex-box-letters-horizontal">
-            <c:forEach var = "i" begin="1" end="5">
-                <div class="empty-letter">__</div>
-            </c:forEach>
-        </div>
-    </div>
 </body>
 </html>
