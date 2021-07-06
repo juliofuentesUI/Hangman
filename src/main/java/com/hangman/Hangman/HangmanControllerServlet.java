@@ -4,6 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.UUID;
 
 
@@ -83,7 +84,17 @@ public class HangmanControllerServlet extends HttpServlet {
         //the Letter buttons A-Z will each make a ajax post request to this method
         //it will interact with the current gameInstance attached to the session.
         System.out.println("POST REQUEST RECEIVED");
+        String letter = request.getParameter("letter");
+        System.out.println("letter value is : " + letter);
         SetAllowOriginInHeader(response);
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter printWriter = response.getWriter();
+        printWriter.println("POST received, updated Hangman state");
+        //we should eventually do json format so we can send back objects
+        //lets try to leave AJAX to just sending POST and not expecting anything back
+        //if request is bad, send SC_NOT_FOUND
+        //try sending back response without setting header
 
     }
 
