@@ -11,6 +11,11 @@
 <head>
     <title>Hangman Game page</title>
     <link rel="stylesheet" type="text/css" href="resources/main.css">
+    <script
+            src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="resources/hangmanAjax.js"></script>
 </head>
 <body>
     <div>
@@ -18,6 +23,7 @@
             <p>Hello there!</p>
             <p>Your session ID is: ${sessionScope.sessionId}</p>
             <p>Your game status is currently : ${sessionScope.hasStarted}</p>
+            <h1>Lives remaining: ${sessionScope.gameInstance.getLivesRemaining()}</h1>
             <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
         </div>
         <div class="empty-letters-parent">
@@ -29,7 +35,7 @@
         </div>
         <div class="available-letters-parent">
             <c:forEach var="letter" items="${sessionScope.gameInstance.getAllLetters()}" >
-                <button type="button" class="btn-true">${letter}</button>
+                <button type="button" class="btn-true" data-letterValue="${letter}">${letter}</button>
             </c:forEach>
         </div>
     </div>

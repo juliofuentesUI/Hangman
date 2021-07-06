@@ -65,7 +65,7 @@ public class HangmanGame {
         return currentWord;
     }
 
-    public Integer getLives_remaining() {
+    public Integer getLivesRemaining() {
         return lives_remaining;
     }
 
