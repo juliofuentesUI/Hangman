@@ -1,6 +1,6 @@
 $(document).ready(() => {
     //TODO: change endpoint to point to AWS server instance
-    const ENDPOINT = "localhost:8080/HangmanGame";
+    const ENDPOINT = "/HangmanGame";
     $(".letter-button").each((index, buttonEl) => {
         //attach event listener to each button to make post request.
         $(buttonEl).on("click", (event) => {
@@ -10,6 +10,7 @@ $(document).ready(() => {
             $.ajax({
                 url: ENDPOINT,
                 method: "POST",
+                crossDomain: true,
                 data: {letter: letter},
                 success: function(data) {console.log("data returned", data)},
                 error: function(xhr, exception) {console.log("error", exception)}

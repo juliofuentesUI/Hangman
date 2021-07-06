@@ -82,6 +82,14 @@ public class HangmanControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //the Letter buttons A-Z will each make a ajax post request to this method
         //it will interact with the current gameInstance attached to the session.
-        //
+        System.out.println("POST REQUEST RECEIVED");
+        SetAllowOriginInHeader(response);
+
+    }
+
+    private void SetAllowOriginInHeader(HttpServletResponse response) {
+        //dont forget, there's something in regards to "PRE FLIGHT"
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "*");
     }
 }
