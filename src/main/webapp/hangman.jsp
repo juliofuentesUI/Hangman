@@ -34,8 +34,10 @@
             </div>
         </div>
         <div class="available-letters-parent">
-            <c:forEach var="letter" items="${sessionScope.gameInstance.getAllLetters()}" >
-                <button type="button" class="btn-true letter-button" data-letterValue="${letter}">${letter}</button>
+            <c:forEach var="letter" items="${sessionScope.gameInstance.getAvailLetterMap()}" >
+                <c:if test="${letter.value == true}">
+                    <button type="button" class="btn-true letter-button" data-letterValue="${letter.key}">${letter.key}</button>
+                </c:if>
             </c:forEach>
         </div>
     </div>
