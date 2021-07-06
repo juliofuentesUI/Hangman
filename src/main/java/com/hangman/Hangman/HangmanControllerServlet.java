@@ -7,8 +7,7 @@ import java.io.IOException;
 
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
 public class HangmanControllerServlet extends HttpServlet {
-    public boolean gameStart = false;
-
+    public static int cookieCount = 0;
 
     private HangmanGame startGameInstance() {
         //pass in optional ID? Who knows.
