@@ -18,7 +18,7 @@
             <p>Hello there!</p>
             <p>Your session ID is: ${sessionScope.sessionId}</p>
             <p>Your game status is currently : ${sessionScope.hasStarted}</p>
-            <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangmanStart.jpeg"/>
+            <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
         </div>
         <div class="empty-letters-parent">
             <div class="flex-box-letters-horizontal">
