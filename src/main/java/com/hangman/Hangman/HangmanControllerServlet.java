@@ -58,6 +58,7 @@ public class HangmanControllerServlet extends HttpServlet {
             //make JSP page access data only from sessions cope object called "session" in jsp context
         } else {
             //their game already exists!
+            //pass what is in session
         }
     }
 
