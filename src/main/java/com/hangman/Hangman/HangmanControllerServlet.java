@@ -91,6 +91,10 @@ public class HangmanControllerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.println("POST received, updated Hangman state");
+        HttpSession session = request.getSession();
+        HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
+        hangmanGame.checkLetter(letter);
+        //forward request,response to hangman.jsp page with updated values
         //we should eventually do json format so we can send back objects
         //lets try to leave AJAX to just sending POST and not expecting anything back
         //if request is bad, send SC_NOT_FOUND

@@ -2,6 +2,7 @@ package com.hangman.Hangman;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class HangmanGame {
@@ -9,6 +10,7 @@ public class HangmanGame {
     private File wordListFile;
     private static ArrayList<String> wordList = new ArrayList<>();
     private String[] availLetters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    private HashMap<String, Boolean> availLettersMap = new HashMap<String, Boolean>();
     private Scanner textScanner;
 
     private String currentWord;
@@ -23,6 +25,7 @@ public class HangmanGame {
 
     public HangmanGame() {
             loadWordListToMemory();
+            initAvailableLetters();
             selectNextWord(); //loads nextWord into memory along with charArray
     }
 
@@ -41,6 +44,12 @@ public class HangmanGame {
             }
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    private void initAvailableLetters() {
+        for(String availLetter: availLetters) {
+            availLettersMap.put(availLetter, true);
         }
     }
 
@@ -69,10 +78,15 @@ public class HangmanGame {
         return lives_remaining;
     }
 
+    public HashMap getAvailLetterMap() {
+        return availLettersMap;
+    }
+
     public boolean checkLetter(String letter) {
         //convert to char
         //TODO: This method is responsible for more than just checking the letter, split it up
         char[] guessedLetter = letter.toCharArray();
+        //find letter in HashMap and set to false
         boolean found = false;
         //check to see if letter exists in textArray
         for(int i = 0; i < textArray.length; i++) {
