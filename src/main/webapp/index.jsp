@@ -12,6 +12,7 @@
 </h1>
 <br/>
 
+<a href="/HangmanGame?startGame=true">Start Game</a>
 <div class="hangManContainer" align="center">
     <p>Hello there!</p>
     <img src="${pageContext.request.contextPath}/resources/hangmanStart.jpeg"/>
