@@ -4,10 +4,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
 public class HangmanControllerServlet extends HttpServlet {
     public static int cookieCount = 0;
+    private UUID sessionCookieId;
 
     private HangmanGame startGameInstance() {
         //pass in optional ID? Who knows.
@@ -32,7 +34,9 @@ public class HangmanControllerServlet extends HttpServlet {
             System.out.println("New game starting");
             HangmanGame game = startGameInstance();
             session.setAttribute("hasStarted", true);
-            session.setAttribute("game" + uniqueId, game);
+            session.setAttribute("game" + sessionCookieId, game);
+            //load up the game .. probably on a diff  JSP page
+            //make JSP page access data only from sessions cope object called "session" in jsp context
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/test.jsp");
         dispatcher.forward(request, response);
