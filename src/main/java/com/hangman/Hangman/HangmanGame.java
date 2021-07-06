@@ -8,6 +8,7 @@ public class HangmanGame {
     //access words and stuff here
     private File wordListFile;
     private static ArrayList<String> wordList = new ArrayList<>();
+//    private String[] availLetters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private Scanner textScanner;
 
     private String currentWord;
@@ -53,6 +54,7 @@ public class HangmanGame {
 
     public boolean CheckLetter(String letter) {
         //convert to char
+        //TODO: This method is responsible for more than just checking the letter, split it up
         char[] guessedLetter = letter.toCharArray();
         boolean found = false;
         //check to see if letter exists in textArray
@@ -65,10 +67,11 @@ public class HangmanGame {
                 //this for loop below checks to see if game is over
                 // if it is, just stop the game
                 for(char c: playerAnswers) {
-                    if (playerAnswers[i] == 0) {
+                    if (c == 0) {
                         //that means this value still hasn't been filled in
                         //game is still on
                         continue;
+                        // break would be better , will break just break out of inner loop? who knows
                     } else {
                         isGameWon = true;
                         return true;
