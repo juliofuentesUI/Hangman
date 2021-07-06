@@ -61,6 +61,10 @@ public class HangmanGame {
         return availLetters;
     }
 
+    public String GetCurrentWord() {
+        return currentWord;
+    }
+
     public boolean CheckLetter(String letter) {
         //convert to char
         //TODO: This method is responsible for more than just checking the letter, split it up

@@ -22,8 +22,8 @@
         </div>
         <div class="empty-letters-parent">
             <div class="flex-box-letters-horizontal">
-                <c:forEach var = "i" begin="1" end="5">
-                    <div class="empty-letter">__</div>
+                <c:forEach var="i" items="${sessionScope.gameInstance.GetCurrentWord().toCharArray()}" varStatus="loop">
+                    <div class="empty-letter" id="${loop.index}" data-letter="${i}">__</div>
                 </c:forEach>
             </div>
         </div>
