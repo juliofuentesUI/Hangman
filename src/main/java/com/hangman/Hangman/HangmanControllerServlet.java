@@ -9,38 +9,40 @@ import java.io.IOException;
 public class HangmanControllerServlet extends HttpServlet {
     public boolean gameStart = false;
 
+
     private HangmanGame startGameInstance() {
+        //pass in optional ID? Who knows.
         return new HangmanGame();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //we will receive this request when they press START GAME.
-        // once we receive the request, talk to the actual Hangman.java and make an instance
-        //where that instance lives in memory ... not sure but.
-        //right now , lets fake it by checking by setting an attribute to TRUE, and
-        //sending that attribute in the response
-        //if cookies yada yada , recreate instance of existing game
-        //if no cookies, create new game.
         System.out.println("GET REQUEST RECEIVED");
-        ServletContext servletContext = getServletContext();
+        HttpSession session = request.getSession();
+        //get session if it exists already, which it almost likely will.
+        //check if session has an attribute to signify they've been here already.
+        //if the user is in the same session, but they're pressing START GAME , i will extract
+        //the existing ID of the session (which is gonna be the same ID on the cookie, and load up the last
+        //state they were in!
         String startGame = request.getParameter("startGame");
-        if (startGame.equals("true")) {
-            System.out.println("GAME HAS BEEN CREATED");
+        //if were starting a new game AND there's no existing session ID, create ID + cookie + new game instance
+        //every user will automatically get the JSESSIONID unique to them...but i still want to make my own cookie.
+        //make sure the conditional below checks to se if were starting a game and if the user is BRAND NEW
+        if (startGame.equals("true") && session.getAttribute("hasStarted") == null) {
+            //This confirms session is brand new, create a new game.
+            System.out.println("New game starting");
             HangmanGame game = startGameInstance();
-            HttpSession session = request.getSession();
-            request.setAttribute("game", game); //adds to request
-//            session.setAttribute("game", game); //adds to session
-//            servletContext.setAttribute("game", game);   //adds to application context
-//            request.setAttribute("gameStarted", game);
+            session.setAttribute("hasStarted", true);
+            session.setAttribute("game" + uniqueId, game);
         }
-//        RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/test.jsp");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/test.jsp");
         dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        //the Letter buttons A-Z will each make a ajax post request to this method
+        //it will interact with the current gameInstance attached to the session.
+        //
     }
 }
