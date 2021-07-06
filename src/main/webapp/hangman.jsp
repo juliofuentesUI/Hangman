@@ -14,7 +14,6 @@
 </head>
 <body>
     <div>
-        <p>THIS IS WHERE HANGMAN WILL BE PLAYED</p>
         <div class="hangManContainer" align="center">
             <a href="/HangmanGame?startGame=true">Start Game</a>
             <p>Hello there!</p>

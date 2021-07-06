@@ -6,14 +6,26 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.UUID;
 
+
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
 public class HangmanControllerServlet extends HttpServlet {
+    final String ENV_DOMAIN = "localhost";
     public static int cookieCount = 0;
-    private UUID sessionCookieId;
+    private UUID uniqueId;
+    private Cookie cookie;
 
     private HangmanGame startGameInstance() {
         //pass in optional ID? Who knows.
         return new HangmanGame();
+    }
+
+    private Cookie createCookie(String name, String uuid) {
+        cookie = new Cookie(name, uuid);
+        cookie.setComment("Stores uuid to retrieve state from server");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(30 * 60 * 1000);
+        cookie.setDomain(ENV_DOMAIN);
+        return cookie;
     }
 
     @Override
@@ -33,13 +45,17 @@ public class HangmanControllerServlet extends HttpServlet {
             //This confirms session is brand new, create a new game.
             System.out.println("New game starting");
             HangmanGame game = startGameInstance();
+            uniqueId = UUID.randomUUID();
             session.setAttribute("hasStarted", true);
-            session.setAttribute("game" + sessionCookieId, game);
+            session.setAttribute("sessionId", uniqueId.toString());
+            session.setAttribute("gameInstance", game);
+            Cookie cookie = this.createCookie("gameID" , uniqueId.toString());
+            response.addCookie(cookie);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
+            dispatcher.forward(request, response);
             //load up the game .. probably on a diff  JSP page
             //make JSP page access data only from sessions cope object called "session" in jsp context
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
-        dispatcher.forward(request, response);
     }
 
     @Override
