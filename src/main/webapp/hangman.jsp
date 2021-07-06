@@ -22,13 +22,13 @@
         </div>
         <div class="empty-letters-parent">
             <div class="flex-box-letters-horizontal">
-                <c:forEach var="i" items="${sessionScope.gameInstance.GetCurrentWord().toCharArray()}" varStatus="loop">
+                <c:forEach var="i" items="${sessionScope.gameInstance.getCurrentWord().toCharArray()}" varStatus="loop">
                     <div class="empty-letter" id="${loop.index}" data-letter="${i}">__</div>
                 </c:forEach>
             </div>
         </div>
         <div class="available-letters-parent">
-            <c:forEach var="letter" items="${sessionScope.gameInstance.GetAllLetters()}" >
+            <c:forEach var="letter" items="${sessionScope.gameInstance.getAllLetters()}" >
                 <button type="button" class="btn-true">${letter}</button>
             </c:forEach>
         </div>

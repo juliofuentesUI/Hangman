@@ -33,15 +33,7 @@ public class HangmanControllerServlet extends HttpServlet {
         //check for cookies first...see if they exists THAT WAY, also keep hasStarted flag in session object why not
         System.out.println("GET REQUEST RECEIVED");
         HttpSession session = request.getSession();
-        //get session if it exists already, which it almost likely will.
-        //check if session has an attribute to signify they've been here already.
-        //if the user is in the same session, but they're pressing START GAME , i will extract
-        //the existing ID of the session (which is gonna be the same ID on the cookie, and load up the last
-        //state they were in!
         String startGame = request.getParameter("startGame");
-        //if were starting a new game AND there's no existing session ID, create ID + cookie + new game instance
-        //every user will automatically get the JSESSIONID unique to them...but i still want to make my own cookie.
-        //make sure the conditional below checks to se if were starting a game and if the user is BRAND NEW
         // TODO: IMAGINE A SCENARIO WHERE THEY REFRESH THE PAGE AND DONT GO THROUGH THE START GAME HYPERLINK
         // TODO: If they refresh the page their game will already exists...SO in the ELSE BLOCK
         // TODO: DO EITHER A) FIND THE EXISTING GAME INSTANCE IN MEMORY THAT CORRELATES OR TWO, JUST
@@ -49,7 +41,6 @@ public class HangmanControllerServlet extends HttpServlet {
         // IF THAT HAPPENS, WE WON'T GET A startGame equals TRUE parameter. So we should do
         // if startGame.equals('true") || session exists and validate with cookie id!
         // we may need to create a new JSP page as an intermediary loading page.
-        // validating may take a bit?
         if (startGame.equals("true") && session.getAttribute("hasStarted") == null) {
             //This confirms session is brand new, create a new game.
             System.out.println("New game starting");

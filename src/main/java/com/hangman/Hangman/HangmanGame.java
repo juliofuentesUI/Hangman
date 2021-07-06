@@ -12,7 +12,7 @@ public class HangmanGame {
     private Scanner textScanner;
 
     private String currentWord;
-    private Integer lives_remaining;
+    private Integer lives_remaining = 5;
     private char[] textArray;
     private char[] playerAnswers;
     public boolean isGameOver = false;
@@ -22,15 +22,15 @@ public class HangmanGame {
     //maybe make an init method that does the putting words into memory? honestly it should be done once.
 
     public HangmanGame() {
-            LoadWordListToMemory();
-            SelectNextWord(); //loads nextWord into memory along with charArray
+            loadWordListToMemory();
+            selectNextWord(); //loads nextWord into memory along with charArray
     }
 
     public HangmanGame(Object gameState) {
         // in the case we have to load an existing game;
     }
 
-    private void LoadWordListToMemory() {
+    private void loadWordListToMemory() {
         if (wordList.size() >= 1) return; //wordList is in memory
         try {
 //          wordlistFile = new File(ClassLoader.getSystemClassLoader().getResource("../../../wordlist.txt").getFile());
@@ -44,7 +44,7 @@ public class HangmanGame {
         }
     }
 
-    private void SelectNextWord() {
+    private void selectNextWord() {
         if (wordList.size() <= 0) return;
         currentWord = wordList.get((int)(Math.random()* wordList.size()));
         //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
@@ -52,20 +52,24 @@ public class HangmanGame {
         playerAnswers = new char[textArray.length];
     }
 
-    public void RestartGame() {
+    public void restartGame() {
         //restart game logic here
         //reset arrays, find new word, reset lives remaining, and reset isGameWon /over booleans
     }
 
-    public String[] GetAllLetters() {
+    public String[] getAllLetters() {
         return availLetters;
     }
 
-    public String GetCurrentWord() {
+    public String getCurrentWord() {
         return currentWord;
     }
 
-    public boolean CheckLetter(String letter) {
+    public Integer getLives_remaining() {
+        return lives_remaining;
+    }
+
+    public boolean checkLetter(String letter) {
         //convert to char
         //TODO: This method is responsible for more than just checking the letter, split it up
         char[] guessedLetter = letter.toCharArray();
