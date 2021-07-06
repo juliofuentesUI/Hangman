@@ -42,6 +42,14 @@ public class HangmanControllerServlet extends HttpServlet {
         //if were starting a new game AND there's no existing session ID, create ID + cookie + new game instance
         //every user will automatically get the JSESSIONID unique to them...but i still want to make my own cookie.
         //make sure the conditional below checks to se if were starting a game and if the user is BRAND NEW
+        // TODO: IMAGINE A SCENARIO WHERE THEY REFRESH THE PAGE AND DONT GO THROUGH THE START GAME HYPERLINK
+        // TODO: If they refresh the page their game will already exists...SO in the ELSE BLOCK
+        // TODO: DO EITHER A) FIND THE EXISTING GAME INSTANCE IN MEMORY THAT CORRELATES OR TWO, JUST
+        // TODO: RECREATE a new Hangman game instance but pass in STATE.
+        // IF THAT HAPPENS, WE WON'T GET A startGame equals TRUE parameter. So we should do
+        // if startGame.equals('true") || session exists and validate with cookie id!
+        // we may need to create a new JSP page as an intermediary loading page.
+        // validating may take a bit?
         if (startGame.equals("true") && session.getAttribute("hasStarted") == null) {
             //This confirms session is brand new, create a new game.
             System.out.println("New game starting");
@@ -58,7 +66,11 @@ public class HangmanControllerServlet extends HttpServlet {
             //make JSP page access data only from sessions cope object called "session" in jsp context
         } else {
             //their game already exists!
+            //do the validation to confirm if their game exists already
+            //RIGHT NOW WE'LL GET A BLANK PAGE ONCE A SESSION ALREADY EXISTS!!
             //pass what is in session
+            //basically forward the request and response object to the same hangman.jsp page, but the
+            //request,response object will be stubbed in from existing data in session object.
         }
     }
 

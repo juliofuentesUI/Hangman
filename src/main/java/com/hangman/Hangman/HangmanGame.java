@@ -9,6 +9,7 @@ public class HangmanGame {
     private File wordListFile;
     private ArrayList<String> wordList = new ArrayList<>();
     private Scanner textScanner;
+    private String currentWord;
     //maybe we should make the wordList static , we don't want every user making us run this operation a lot
     //maybe make an init method that does the putting words into memory? honestly it should be done once.
 
@@ -21,12 +22,16 @@ public class HangmanGame {
             while(textScanner.hasNextLine()) {
                 wordList.add(textScanner.nextLine());
             }
-            String selectedWord = wordList.get((int)(Math.random()* wordList.size()));
+            currentWord = wordList.get((int)(Math.random()* wordList.size()));
             //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
-            char[] textArray = selectedWord.toCharArray();
+            char[] textArray = currentWord.toCharArray();
             char[] playerAnswers = new char[textArray.length];
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public HangmanGame(Object gameState) {
+        // in the case we have to load an existing game;
     }
 }
