@@ -28,6 +28,10 @@ button.btn-true {
     /*figure out how to do pseudo class disable logic*/
 }
 
+button.btn-true:disabled {
+    background-color: lightslategray;
+}
+
 div.available-letters-parent {
     display: flex;
     flex-direction: row;
