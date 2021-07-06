@@ -27,6 +27,11 @@
                 </c:forEach>
             </div>
         </div>
+        <div class="available-letters-parent">
+            <c:forEach var="letter" items="${sessionScope.gameInstance.GetAllLetters()}" >
+                <button type="button" class="btn-true">${letter}</button>
+            </c:forEach>
+        </div>
     </div>
 </body>
 </html>
