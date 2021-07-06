@@ -8,7 +8,7 @@ public class HangmanGame {
     //access words and stuff here
     private File wordListFile;
     private static ArrayList<String> wordList = new ArrayList<>();
-//    private String[] availLetters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+    private String[] availLetters = new String[]{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
     private Scanner textScanner;
 
     private String currentWord;
@@ -50,6 +50,15 @@ public class HangmanGame {
         //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
         textArray = currentWord.toCharArray();
         playerAnswers = new char[textArray.length];
+    }
+
+    public void RestartGame() {
+        //restart game logic here
+        //reset arrays, find new word, reset lives remaining, and reset isGameWon /over booleans
+    }
+
+    public String[] GetAllLetters() {
+        return availLetters;
     }
 
     public boolean CheckLetter(String letter) {
