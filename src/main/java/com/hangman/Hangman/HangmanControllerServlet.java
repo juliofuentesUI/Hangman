@@ -24,7 +24,18 @@ public class HangmanControllerServlet extends HttpServlet {
         //if no cookies, create new game.
         System.out.println("GET REQUEST RECEIVED");
         ServletContext servletContext = getServletContext();
-        RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/test.jsp");
+        String startGame = request.getParameter("startGame");
+        if (startGame.equals("true")) {
+            System.out.println("GAME HAS BEEN CREATED");
+            HangmanGame game = startGameInstance();
+            HttpSession session = request.getSession();
+            request.setAttribute("game", game); //adds to request
+//            session.setAttribute("game", game); //adds to session
+//            servletContext.setAttribute("game", game);   //adds to application context
+//            request.setAttribute("gameStarted", game);
+        }
+//        RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/test.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/test.jsp");
         dispatcher.forward(request, response);
     }
 
