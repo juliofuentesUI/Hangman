@@ -58,13 +58,26 @@ public class HangmanControllerServlet extends HttpServlet {
             session.setAttribute("hasStarted", true);
             session.setAttribute("sessionId", uniqueId.toString());
             session.setAttribute("gameInstance", game);
-            Cookie cookie = this.createCookie("gameID" , uniqueId.toString());
+            Cookie cookie = this.createCookie("gameId" , uniqueId.toString());
             response.addCookie(cookie);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
             dispatcher.forward(request, response);
             //load up the game .. probably on a diff  JSP page
             //make JSP page access data only from sessions cope object called "session" in jsp context
         } else {
+            //TODO: Separate into some authentication method
+            Cookie[] cookies = request.getCookies();
+            String sessionId = session.getAttribute("sessionId").toString();
+            System.out.println("Session ID IS : ");
+            System.out.println(sessionId);
+            for(Cookie cookie: cookies) {
+                if (cookie.getName().equals("gameId") && sessionId.equals(cookie.getValue())) {
+                    System.out.println("Session ID matches cookie id!");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
+                    dispatcher.forward(request, response);
+                }
+            }
+            //if for loop ends...and nothing matches..just redirect them somewhere
             //their game already exists!
             //do the validation to confirm if their game exists already
             //RIGHT NOW WE'LL GET A BLANK PAGE ONCE A SESSION ALREADY EXISTS!!
