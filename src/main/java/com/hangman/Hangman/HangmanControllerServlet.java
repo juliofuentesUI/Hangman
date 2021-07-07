@@ -1,11 +1,14 @@
 package com.hangman.Hangman;
 
+import com.google.gson.Gson;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
+import com.hangman.Hangman.JsonRedirect;
 
 
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
@@ -88,12 +91,21 @@ public class HangmanControllerServlet extends HttpServlet {
         if (lives_remaining == 0) {
             //trigger redirect here
             SetAllowOriginInHeader(response);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("text/html;charset=UTF-8");
-            request.getRequestDispatcher("/ResetGame").forward(request, response);
+//            response.setStatus(HttpServletResponse.SC_FOUND);
+            PrintWriter printWriter = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            JsonRedirect jsonObj = new JsonRedirect("/ResetGameServlet");
+            String jsonObjString = new Gson().toJson(jsonObj);
+            printWriter.print(jsonObjString);
+            printWriter.flush();
+            //use GSON to make instance of an object that has location url in it
+//            response.sendRedirect("/ResetGameServlet");
+//            request.getRequestDispatcher("/ResetGameServlet").forward(request, response);
         } else {
             SetAllowOriginInHeader(response);
             response.setStatus(HttpServletResponse.SC_OK);
+            //remember its this STATUS CODE that triggers client side success callback
             response.setContentType("text/html;charset=UTF-8");
             PrintWriter printWriter = response.getWriter();
             printWriter.println("POST received, updated Hangman state, please refresh on client side to see results");

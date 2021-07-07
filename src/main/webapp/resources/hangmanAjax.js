@@ -12,9 +12,15 @@ $(document).ready(() => {
                 method: "POST",
                 crossDomain: true,
                 data: {letter: letter},
-                success: function(data) {
-                    console.log("data returned", data)
-                    window.location.reload();
+                success: function(data, textStatus, jqXhr) {
+                    debugger;
+                    if (data.urlRedirect) {
+                        // window.location.href = data.urlRedirect;
+                        window.location.replace(data.urlRedirect);
+                    } else {
+                        console.log("data returned", data)
+                        window.location.reload();
+                    }
                 },
                 error: function(xhr, exception) {console.log("error", exception)}
             });
