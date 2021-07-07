@@ -12,6 +12,9 @@ public class ResetGameServlet extends HttpServlet {
         System.out.println("doGet from /ResetGameServlet");
         //RESET GAME INSTANCE HERE!!!
         // Create method on HangMan.java to reset itself.
+        HttpSession session = request.getSession();
+        HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
+        hangmanGame.ResetGame();
         request.getRequestDispatcher("/resetGame.jsp").forward(request, response);
     }
 
