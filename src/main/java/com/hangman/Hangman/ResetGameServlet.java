@@ -11,6 +11,7 @@ public class ResetGameServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet from /ResetGameServlet");
         //RESET GAME INSTANCE HERE!!!
+        // Create method on HangMan.java to reset itself.
         request.getRequestDispatcher("/resetGame.jsp").forward(request, response);
     }
 

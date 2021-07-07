@@ -28,8 +28,15 @@ public class HangmanGame {
             selectNextWord(); //loads nextWord into memory along with charArray
     }
 
-    public HangmanGame(Object gameState) {
-        // in the case we have to load an existing game;
+    public void ResetGame() {
+        //call initAvailableLetters to make all availLetters true again
+        initAvailableLetters();
+        //reset lives_remaining back to 5;
+        lives_remaining = 5;
+        //reset imageIndex back to 0
+        imageIndex = 0;
+        //call SelectNextWord() to reset textArray, currentWord, & playerAnswers array
+        selectNextWord();
     }
 
     private void loadWordListToMemory() {
@@ -62,11 +69,6 @@ public class HangmanGame {
         for(int i = 0; i < playerAnswers.length; i++) {
             playerAnswers[i] = "?".charAt(0);
         }
-    }
-
-    public void restartGame() {
-        //restart game logic here
-        //reset arrays, find new word, reset lives remaining, and reset isGameWon /over booleans
     }
 
     public Integer getImageIndex() {
