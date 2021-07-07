@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
 public class HangmanControllerServlet extends HttpServlet {
-    final String ENV_DOMAIN = "localhost";
+    final String ENV_DOMAIN = "alcacruz-demo.us-west-1.elasticbeanstalk.com";
     public static int cookieCount = 0;
     private UUID uniqueId;
     private Cookie cookie;
