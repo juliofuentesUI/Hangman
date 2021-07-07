@@ -33,7 +33,7 @@
                 <p>Your session ID is: ${sessionScope.sessionId}</p>
                 <p>Your game status is currently : ${sessionScope.hasStarted}</p>
                 <h1>Lives remaining: ${sessionScope.gameInstance.getLivesRemaining()}</h1>
-                <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
+                <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman${sessionScope.gameInstance.getImageIndex()}.jpeg"/>
             </div>
             <div class="empty-letters-parent">
                 <div class="flex-box-letters-horizontal">

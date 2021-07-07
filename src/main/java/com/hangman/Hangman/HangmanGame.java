@@ -15,6 +15,7 @@ public class HangmanGame {
 
     private String currentWord;
     private Integer lives_remaining = 5;
+    private Integer imageIndex = 0;
     private char[] textArray;
     private char[] playerAnswers;
     public boolean isGameOver = false;
@@ -69,6 +70,10 @@ public class HangmanGame {
         //reset arrays, find new word, reset lives remaining, and reset isGameWon /over booleans
     }
 
+    public Integer getImageIndex() {
+        return imageIndex;
+    }
+
     public String[] getAllLetters() {
         return availLetters;
     }
@@ -120,6 +125,7 @@ public class HangmanGame {
         }
         if (!found) {
             lives_remaining--;
+            imageIndex++;
             //lose a life, update hangman image from 0 to 1 and so fourth.
             //return true that this letter exists
             //then if the caller see's true, they can just access our getter methods to see
