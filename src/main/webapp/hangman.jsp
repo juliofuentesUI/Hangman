@@ -18,28 +18,39 @@
     <script src="resources/hangmanAjax.js"></script>
 </head>
 <body>
-    <div>
-        <div class="hangManContainer" align="center">
-            <p>Hello there!</p>
-            <p>Your session ID is: ${sessionScope.sessionId}</p>
-            <p>Your game status is currently : ${sessionScope.hasStarted}</p>
-            <h1>Lives remaining: ${sessionScope.gameInstance.getLivesRemaining()}</h1>
-            <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
-        </div>
-        <div class="empty-letters-parent">
-            <div class="flex-box-letters-horizontal">
-                <c:forEach var="i" items="${sessionScope.gameInstance.getPlayerAnswers()}" varStatus="loop">
-                    <div class="empty-letter" id="${loop.index}" data-letter="${i}">${i}</div>
+<c:choose >
+    <c:when test="${sessionScope.gameInstance.checkGameWon() && sessionScope.gameInstance.getLivesRemaining() > 0}">
+        <button class="btn-true letter-button">RESET GAME</button>
+        <p>YOU WIN</p>
+    </c:when>
+    <c:when test="${sessionScope.gameInstance.getLivesRemaining() <= 0}">
+        <button class="btn-true letter-button">RESET GAME</button>
+    </c:when>
+    <c:otherwise>
+        <div>
+            <div class="hangManContainer" align="center">
+                <p>Hello there!</p>
+                <p>Your session ID is: ${sessionScope.sessionId}</p>
+                <p>Your game status is currently : ${sessionScope.hasStarted}</p>
+                <h1>Lives remaining: ${sessionScope.gameInstance.getLivesRemaining()}</h1>
+                <img alt="Hangman hanging picture" src="${pageContext.request.contextPath}/resources/hangman0.jpeg"/>
+            </div>
+            <div class="empty-letters-parent">
+                <div class="flex-box-letters-horizontal">
+                    <c:forEach var="i" items="${sessionScope.gameInstance.getPlayerAnswers()}" varStatus="loop">
+                        <div class="empty-letter" id="${loop.index}" data-letter="${i}">${i}</div>
+                    </c:forEach>
+                </div>
+            </div>
+            <div class="available-letters-parent">
+                <c:forEach var="letter" items="${sessionScope.gameInstance.getAvailLetterMap()}" >
+                    <c:if test="${letter.value == true}">
+                        <button type="button" class="btn-true letter-button" data-letterValue="${letter.key}">${letter.key}</button>
+                    </c:if>
                 </c:forEach>
             </div>
         </div>
-        <div class="available-letters-parent">
-            <c:forEach var="letter" items="${sessionScope.gameInstance.getAvailLetterMap()}" >
-                <c:if test="${letter.value == true}">
-                    <button type="button" class="btn-true letter-button" data-letterValue="${letter.key}">${letter.key}</button>
-                </c:if>
-            </c:forEach>
-        </div>
-    </div>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>

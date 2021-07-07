@@ -55,6 +55,7 @@ public class HangmanGame {
     private void selectNextWord() {
         if (wordList.size() <= 0) return;
         currentWord = wordList.get((int)(Math.random()* wordList.size()));
+        System.out.println("Currentword is : " + currentWord);
         //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
         textArray = currentWord.toCharArray();
         playerAnswers = new char[textArray.length];
@@ -102,7 +103,7 @@ public class HangmanGame {
         return true;
     }
 
-    public boolean checkLetter(String letter) {
+    public Integer checkLetter(String letter) {
         //convert to char
         char[] guessedLetter = letter.toCharArray();
         if (availLettersMap.containsKey(String.valueOf(guessedLetter))) {
@@ -119,16 +120,11 @@ public class HangmanGame {
         }
         if (!found) {
             lives_remaining--;
-            if (lives_remaining == 0) {
-                isGameOver = true;
-                //return false;??
-            }
-            return false;
             //lose a life, update hangman image from 0 to 1 and so fourth.
             //return true that this letter exists
             //then if the caller see's true, they can just access our getter methods to see
             // the current playerAnswers array
         }
-        return true;
+        return lives_remaining;
     }
 }
