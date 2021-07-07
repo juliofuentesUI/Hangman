@@ -89,25 +89,18 @@ public class HangmanControllerServlet extends HttpServlet {
         System.out.println("letter value is : " + letter);
         HttpSession session = request.getSession();
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
-        hangmanGame.checkLetter(letter);
-        //should be hangmanGame.updateLetterMap(letter);
-        SetAllowOriginInHeader(response);
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter printWriter = response.getWriter();
-        printWriter.println("POST received, updated Hangman state, please refresh on client side");
-
+        hangmanGame.checkLetter(letter); //should return lives remaining
+        if (hangmanGame.checkGameWon()) {
+            //if game has been won, render gamewon text
+        } else {
+            SetAllowOriginInHeader(response);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter printWriter = response.getWriter();
+            printWriter.println("POST received, updated Hangman state, please refresh on client side");
+        }
         //probably don't need to session.setAttribute again, this should all be reference types
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
-//        dispatcher.forward(request, response);
-//        System.out.println("ABOUT TO RE-DIRECT ");
-//        response.sendRedirect("/hangman.jsp");
-        //forward request,response to hangman.jsp page with updated values
         //we should eventually do json format so we can send back objects
-        //lets try to leave AJAX to just sending POST and not expecting anything back
-        //if request is bad, send SC_NOT_FOUND
-        //try sending back response without setting header
-
     }
 
     private void SetAllowOriginInHeader(HttpServletResponse response) {
