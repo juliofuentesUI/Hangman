@@ -86,6 +86,9 @@ public class HangmanGame {
         //convert to char
         //TODO: This method is responsible for more than just checking the letter, split it up
         char[] guessedLetter = letter.toCharArray();
+        if (availLettersMap.containsKey(String.valueOf(guessedLetter))) {
+            availLettersMap.put(String.valueOf(guessedLetter), false);
+        }
         //find letter in HashMap and set to false
         boolean found = false;
         //check to see if letter exists in textArray

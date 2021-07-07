@@ -86,14 +86,21 @@ public class HangmanControllerServlet extends HttpServlet {
         System.out.println("POST REQUEST RECEIVED");
         String letter = request.getParameter("letter");
         System.out.println("letter value is : " + letter);
+        HttpSession session = request.getSession();
+        HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
+        hangmanGame.checkLetter(letter);
+        //should be hangmanGame.updateLetterMap(letter);
         SetAllowOriginInHeader(response);
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = response.getWriter();
-        printWriter.println("POST received, updated Hangman state");
-        HttpSession session = request.getSession();
-        HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
-        hangmanGame.checkLetter(letter);
+        printWriter.println("POST received, updated Hangman state, please refresh on client side");
+
+        //probably don't need to session.setAttribute again, this should all be reference types
+//        RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
+//        dispatcher.forward(request, response);
+//        System.out.println("ABOUT TO RE-DIRECT ");
+//        response.sendRedirect("/hangman.jsp");
         //forward request,response to hangman.jsp page with updated values
         //we should eventually do json format so we can send back objects
         //lets try to leave AJAX to just sending POST and not expecting anything back

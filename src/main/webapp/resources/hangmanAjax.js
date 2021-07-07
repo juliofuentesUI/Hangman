@@ -12,7 +12,10 @@ $(document).ready(() => {
                 method: "POST",
                 crossDomain: true,
                 data: {letter: letter},
-                success: function(data) {console.log("data returned", data)},
+                success: function(data) {
+                    console.log("data returned", data)
+                    window.location.reload();
+                },
                 error: function(xhr, exception) {console.log("error", exception)}
             });
             //in ajax call, no matter if we get a true or false response, we must disable
