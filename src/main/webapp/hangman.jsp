@@ -20,11 +20,16 @@
 <body>
 <c:choose >
     <c:when test="${sessionScope.gameInstance.checkGameWon() && sessionScope.gameInstance.getLivesRemaining() > 0}">
-        <button class="btn-true letter-button">RESET GAME</button>
+        <a href="/">
+            <button class="btn-true">RESET GAME</button>
+        </a>
         <p>YOU WIN</p>
     </c:when>
     <c:when test="${sessionScope.gameInstance.getLivesRemaining() <= 0}">
-        <button class="btn-true letter-button">RESET GAME</button>
+        <a href="/">
+            <button class="btn-true">RESET GAME</button>
+        </a>
+        <p>YOU LOSE</p>
     </c:when>
     <c:otherwise>
         <div>
