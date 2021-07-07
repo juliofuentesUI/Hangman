@@ -19,30 +19,22 @@ public class HangmanGame {
     private char[] playerAnswers;
     public boolean isGameOver = false;
 
-    //maybe we should make the wordList static , we don't want every user making us run this operation a lot
-    //maybe make an init method that does the putting words into memory? honestly it should be done once.
-
     public HangmanGame() {
             loadWordListToMemory();
             initAvailableLetters();
-            selectNextWord(); //loads nextWord into memory along with charArray
+            selectNextWord();
     }
 
     public void ResetGame() {
-        //call initAvailableLetters to make all availLetters true again
         initAvailableLetters();
-        //reset lives_remaining back to 5;
         lives_remaining = 5;
-        //reset imageIndex back to 0
         imageIndex = 0;
-        //call SelectNextWord() to reset textArray, currentWord, & playerAnswers array
         selectNextWord();
     }
 
     private void loadWordListToMemory() {
         if (wordList.size() >= 1) return; //wordList is in memory
         try {
-//          wordlistFile = new File(ClassLoader.getSystemClassLoader().getResource("../../../wordlist.txt").getFile());
             wordListFile = new File(this.getClass().getResource("../../../wordlist.txt").getFile());
             textScanner = new Scanner(wordListFile);
             while(textScanner.hasNextLine()) {
@@ -63,7 +55,6 @@ public class HangmanGame {
         if (wordList.size() <= 0) return;
         currentWord = wordList.get((int)(Math.random()* wordList.size()));
         System.out.println("Currentword is : " + currentWord);
-        //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
         textArray = currentWord.toCharArray();
         playerAnswers = new char[textArray.length];
         for(int i = 0; i < playerAnswers.length; i++) {
@@ -96,8 +87,6 @@ public class HangmanGame {
     }
 
     public boolean checkGameWon() {
-        //this for loop below checks to see if game is over
-        // if it is, just stop the game
         for(char c: playerAnswers) {
             if (c != "?".charAt(0)) {
                 continue;
@@ -110,7 +99,6 @@ public class HangmanGame {
     }
 
     public Integer checkLetter(String letter) {
-        //convert to char
         char[] guessedLetter = letter.toCharArray();
         if (availLettersMap.containsKey(String.valueOf(guessedLetter))) {
             availLettersMap.put(String.valueOf(guessedLetter), false);
@@ -118,8 +106,6 @@ public class HangmanGame {
         boolean found = false;
         for(int i = 0; i < textArray.length; i++) {
             if (guessedLetter[0] == textArray[i]) {
-                //that means this DOES exists
-                //they guessed correctly
                 found = true;
                 playerAnswers[i] = guessedLetter[0];
             }
@@ -127,10 +113,6 @@ public class HangmanGame {
         if (!found) {
             lives_remaining--;
             imageIndex++;
-            //lose a life, update hangman image from 0 to 1 and so fourth.
-            //return true that this letter exists
-            //then if the caller see's true, they can just access our getter methods to see
-            // the current playerAnswers array
         }
         return lives_remaining;
     }
