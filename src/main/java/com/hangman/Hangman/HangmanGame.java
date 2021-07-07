@@ -18,7 +18,6 @@ public class HangmanGame {
     private char[] textArray;
     private char[] playerAnswers;
     public boolean isGameOver = false;
-    public boolean isGameWon = false;
 
     //maybe we should make the wordList static , we don't want every user making us run this operation a lot
     //maybe make an init method that does the putting words into memory? honestly it should be done once.
@@ -89,6 +88,20 @@ public class HangmanGame {
         return playerAnswers;
     }
 
+    public boolean checkGameWon() {
+        //this for loop below checks to see if game is over
+        // if it is, just stop the game
+        for(char c: playerAnswers) {
+            if (c != "?".charAt(0)) {
+                continue;
+                // break would be better , will break just break out of inner loop? who knows
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean checkLetter(String letter) {
         //convert to char
         //TODO: This method is responsible for more than just checking the letter, split it up
@@ -105,23 +118,15 @@ public class HangmanGame {
                 //they guessed correctly
                 found = true;
                 playerAnswers[i] = guessedLetter[0];
-                //this for loop below checks to see if game is over
-                // if it is, just stop the game
-                for(char c: playerAnswers) {
-                    if (c == 0) {
-                        //that means this value still hasn't been filled in
-                        //game is still on
-                        continue;
-                        // break would be better , will break just break out of inner loop? who knows
-                    } else {
-                        isGameWon = true;
-                        return true;
-                    }
-                }
+                checkGameWon();
             }
         }
         if (!found) {
             lives_remaining--;
+            if (lives_remaining == 0) {
+                isGameOver = true;
+                //return false;??
+            }
             return false;
             //lose a life, update hangman image from 0 to 1 and so fourth.
             //return true that this letter exists
