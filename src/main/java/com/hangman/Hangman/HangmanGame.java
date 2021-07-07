@@ -59,6 +59,9 @@ public class HangmanGame {
         //when we have to reconstruct a game, we may have to extrapolate the next 2 lines into another method
         textArray = currentWord.toCharArray();
         playerAnswers = new char[textArray.length];
+        for(int i = 0; i < playerAnswers.length; i++) {
+            playerAnswers[i] = "?".charAt(0);
+        }
     }
 
     public void restartGame() {
@@ -80,6 +83,10 @@ public class HangmanGame {
 
     public HashMap getAvailLetterMap() {
         return availLettersMap;
+    }
+
+    public char[] getPlayerAnswers() {
+        return playerAnswers;
     }
 
     public boolean checkLetter(String letter) {

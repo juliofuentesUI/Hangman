@@ -42,6 +42,7 @@ public class HangmanControllerServlet extends HttpServlet {
         // IF THAT HAPPENS, WE WON'T GET A startGame equals TRUE parameter. So we should do
         // if startGame.equals('true") || session exists and validate with cookie id!
         // we may need to create a new JSP page as an intermediary loading page.
+        // TODO: Don't check  a session this way.
         if (startGame.equals("true") && session.getAttribute("hasStarted") == null) {
             //This confirms session is brand new, create a new game.
             System.out.println("New game starting");
