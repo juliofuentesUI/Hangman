@@ -34,17 +34,11 @@ public class HangmanControllerServlet extends HttpServlet {
         //check for cookies first...see if they exists THAT WAY, also keep hasStarted flag in session object why not
         System.out.println("GET REQUEST RECEIVED");
         HttpSession session = request.getSession();
-        String startGame = request.getParameter("startGame");
-        // TODO: IMAGINE A SCENARIO WHERE THEY REFRESH THE PAGE AND DONT GO THROUGH THE START GAME HYPERLINK
-        // TODO: If they refresh the page their game will already exists...SO in the ELSE BLOCK
-        // TODO: DO EITHER A) FIND THE EXISTING GAME INSTANCE IN MEMORY THAT CORRELATES OR TWO, JUST
-        // TODO: RECREATE a new Hangman game instance but pass in STATE.
-        // IF THAT HAPPENS, WE WON'T GET A startGame equals TRUE parameter. So we should do
-        // if startGame.equals('true") || session exists and validate with cookie id!
-        // we may need to create a new JSP page as an intermediary loading page.
+        HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
+        String startGame = request.getParameter("startGame"); //probably won't need this startGame param
         // TODO: Don't check  a session this way.
-        if (startGame.equals("true") && session.getAttribute("hasStarted") == null) {
-            //This confirms session is brand new, create a new game.
+        if (session.getAttribute("hasStarted") == null ) {
+            //This confirms session is brand new or game needs to reset & create a new game.
             System.out.println("New game starting");
             HangmanGame game = startGameInstance();
             uniqueId = UUID.randomUUID();
@@ -57,6 +51,7 @@ public class HangmanControllerServlet extends HttpServlet {
             dispatcher.forward(request, response);
             //load up the game .. probably on a diff  JSP page
             //make JSP page access data only from sessions cope object called "session" in jsp context
+            //TODO: May need to add else if livesRemaining <= 0
         } else {
             //TODO: Separate into some authentication method
             Cookie[] cookies = request.getCookies();
