@@ -8,7 +8,6 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.UUID;
-import com.hangman.Hangman.JsonRedirect;
 
 
 @WebServlet(name = "HangmanControllerServlet", value = "/HangmanGame")
@@ -68,8 +67,6 @@ public class HangmanControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //the Letter buttons A-Z will each make a ajax post request to this method
-        //it will interact with the current gameInstance attached to the session.
         System.out.println("POST REQUEST RECEIVED");
         String letter = request.getParameter("letter");
         System.out.println("letter value is : " + letter);
