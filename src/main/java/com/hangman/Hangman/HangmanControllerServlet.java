@@ -19,7 +19,6 @@ public class HangmanControllerServlet extends HttpServlet {
     private Cookie cookie;
 
     private HangmanGame startGameInstance() {
-        //pass in optional ID? Who knows.
         return new HangmanGame();
     }
 
@@ -34,7 +33,6 @@ public class HangmanControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //check for cookies first...see if they exists THAT WAY, also keep hasStarted flag in session object why not
         System.out.println("GET REQUEST RECEIVED");
         HttpSession session = request.getSession();
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
@@ -52,9 +50,6 @@ public class HangmanControllerServlet extends HttpServlet {
             response.addCookie(cookie);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/hangman.jsp");
             dispatcher.forward(request, response);
-            //load up the game .. probably on a diff  JSP page
-            //make JSP page access data only from sessions cope object called "session" in jsp context
-            //TODO: May need to add else if livesRemaining <= 0
         } else {
             //TODO: Separate into some authentication method
             Cookie[] cookies = request.getCookies();
@@ -68,13 +63,6 @@ public class HangmanControllerServlet extends HttpServlet {
                     dispatcher.forward(request, response);
                 }
             }
-            //if for loop ends...and nothing matches..just redirect them somewhere
-            //their game already exists!
-            //do the validation to confirm if their game exists already
-            //RIGHT NOW WE'LL GET A BLANK PAGE ONCE A SESSION ALREADY EXISTS!!
-            //pass what is in session
-            //basically forward the request and response object to the same hangman.jsp page, but the
-            //request,response object will be stubbed in from existing data in session object.
         }
     }
 
@@ -89,7 +77,6 @@ public class HangmanControllerServlet extends HttpServlet {
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
         Integer lives_remaining = hangmanGame.checkLetter(letter);
         if (lives_remaining == 0) {
-            //trigger redirect here
             SetAllowOriginInHeader(response);
 //            response.setStatus(HttpServletResponse.SC_FOUND);
             PrintWriter printWriter = response.getWriter();
@@ -99,9 +86,6 @@ public class HangmanControllerServlet extends HttpServlet {
             String jsonObjString = new Gson().toJson(jsonObj);
             printWriter.print(jsonObjString);
             printWriter.flush();
-            //use GSON to make instance of an object that has location url in it
-//            response.sendRedirect("/ResetGameServlet");
-//            request.getRequestDispatcher("/ResetGameServlet").forward(request, response);
         } else {
             SetAllowOriginInHeader(response);
             response.setStatus(HttpServletResponse.SC_OK);
@@ -110,12 +94,9 @@ public class HangmanControllerServlet extends HttpServlet {
             PrintWriter printWriter = response.getWriter();
             printWriter.println("POST received, updated Hangman state, please refresh on client side to see results");
         }
-        //probably don't need to session.setAttribute again, this should all be reference types
-        //we should eventually do json format so we can send back objects
     }
 
     private void SetAllowOriginInHeader(HttpServletResponse response) {
-        //dont forget, there's something in regards to "PRE FLIGHT"
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "*");
     }

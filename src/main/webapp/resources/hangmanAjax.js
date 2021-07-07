@@ -14,8 +14,6 @@ $(document).ready(() => {
                 data: {letter: letter},
                 success: function(data, textStatus, jqXhr) {
                     if (data.urlRedirect) {
-                        // window.location.href = data.urlRedirect;
-                        //.replace was suppose to get rid of existing session context
                         window.location.replace(data.urlRedirect);
                     } else {
                         console.log("data returned", data)
