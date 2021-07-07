@@ -84,12 +84,20 @@ public class HangmanControllerServlet extends HttpServlet {
         System.out.println("letter value is : " + letter);
         HttpSession session = request.getSession();
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
-        hangmanGame.checkLetter(letter);
-        SetAllowOriginInHeader(response);
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter printWriter = response.getWriter();
-        printWriter.println("POST received, updated Hangman state, please refresh on client side to see results");
+        Integer lives_remaining = hangmanGame.checkLetter(letter);
+        if (lives_remaining == 0) {
+            //trigger redirect here
+            SetAllowOriginInHeader(response);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("/ResetGame").forward(request, response);
+        } else {
+            SetAllowOriginInHeader(response);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter printWriter = response.getWriter();
+            printWriter.println("POST received, updated Hangman state, please refresh on client side to see results");
+        }
         //probably don't need to session.setAttribute again, this should all be reference types
         //we should eventually do json format so we can send back objects
     }
