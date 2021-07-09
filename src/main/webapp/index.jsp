@@ -12,7 +12,7 @@
 </h1>
 <br/>
 
-<div class="hangManContainer" align="center">
+<div class="hangManContainer center">
     <a href="/HangmanGame?startGame=true">Start Game</a>
 </div>
 </body>

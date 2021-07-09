@@ -73,12 +73,26 @@ public class HangmanControllerServlet extends HttpServlet {
         HttpSession session = request.getSession();
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
         Integer lives_remaining = hangmanGame.checkLetter(letter);
+        //TODO We will check if User won the game, if they won, use same logic but to
+        // a /ResetGameWonServlet
         if (lives_remaining == 0) {
             SetAllowOriginInHeader(response);
 //            response.setStatus(HttpServletResponse.SC_FOUND);
             PrintWriter printWriter = response.getWriter();
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
+            JsonRedirect jsonObj = new JsonRedirect("/ResetGameServlet");
+            String jsonObjString = new Gson().toJson(jsonObj);
+            printWriter.print(jsonObjString);
+            printWriter.flush();
+        } else if (hangmanGame.checkGameWon())  {
+            //TODO: get rid of reset game conditional render in hangman.jsp
+            SetAllowOriginInHeader(response);
+//            response.setStatus(HttpServletResponse.SC_FOUND);
+            PrintWriter printWriter = response.getWriter();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            //TODO: Don't need to attach WIN string to json
             JsonRedirect jsonObj = new JsonRedirect("/ResetGameServlet");
             String jsonObjString = new Gson().toJson(jsonObj);
             printWriter.print(jsonObjString);

@@ -10,11 +10,11 @@ public class ResetGameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("doGet from /ResetGameServlet");
-        //RESET GAME INSTANCE HERE!!!
         HttpSession session = request.getSession();
         HangmanGame hangmanGame = (HangmanGame) session.getAttribute("gameInstance");
-        hangmanGame.ResetGame();
+        //TODO: Fix race condition below, it works but not reliable
         request.getRequestDispatcher("/resetGame.jsp").forward(request, response);
+        hangmanGame.ResetGame();
     }
 
     @Override
